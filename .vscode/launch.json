@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-CommerceNotasFiscaisApplication<commerce-notas-fiscais>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "br.com.zup.edu.commercenotasfiscais.CommerceNotasFiscaisApplication",
+      "projectName": "commerce-notas-fiscais",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
