@@ -1,7 +1,12 @@
 package br.com.zup.edu.commercenotasfiscais.events;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
+import br.com.zup.edu.commercenotasfiscais.models.ItemNotaFiscal;
+import br.com.zup.edu.commercenotasfiscais.models.NotaFiscal;
 
 public class VendaEvent {
 
@@ -19,6 +24,15 @@ public class VendaEvent {
         this.comprador = comprador;
         this.itens = itens;
         this.pagamento = pagamento;
+    }
+
+    public NotaFiscal toModel() {
+        List<ItemNotaFiscal> itensNotaFiscal = itens.stream().map(ItemVendaEvent::toModel).collect(Collectors.toList());
+        BigDecimal valorTotal = itensNotaFiscal.stream().map(ItemNotaFiscal::getTotal).reduce(BigDecimal.ZERO,
+                BigDecimal::add);
+
+        return new NotaFiscal(comprador.getNome(), comprador.getCpf(), comprador.getEndereco(), itensNotaFiscal,
+                valorTotal);
     }
 
     public UUID getCodigoPedido() {

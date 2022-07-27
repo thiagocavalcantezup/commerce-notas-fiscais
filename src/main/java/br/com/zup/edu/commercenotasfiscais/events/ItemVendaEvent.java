@@ -2,6 +2,8 @@ package br.com.zup.edu.commercenotasfiscais.events;
 
 import java.math.BigDecimal;
 
+import br.com.zup.edu.commercenotasfiscais.models.ItemNotaFiscal;
+
 public class ItemVendaEvent {
 
     private Long id;
@@ -17,6 +19,10 @@ public class ItemVendaEvent {
         this.nome = nome;
         this.quantidade = quantidade;
         this.valor = valor;
+    }
+
+    public ItemNotaFiscal toModel() {
+        return new ItemNotaFiscal(nome, quantidade, valor);
     }
 
     public Long getId() {
