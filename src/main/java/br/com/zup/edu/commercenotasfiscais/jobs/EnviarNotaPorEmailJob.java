@@ -69,7 +69,8 @@ public class EnviarNotaPorEmailJob {
                         sendMessageWithAttachment(
                                 notaFiscal.getEmail(),
                                 "Sua compra foi confirmada!",
-                                "Sua nota fiscal se encontra anexada ao email.",
+                                "Sua nota fiscal de número " + notaFiscalEmailResponse.getNumeroDaNota()
+                                        + " se encontra anexada ao email.",
                                 notaFiscalEmailResponseXml);
                         LOGGER.info("Nota fiscal de número " + notaFiscalEmailResponse.getNumeroDaNota()
                                 + " enviada com sucesso");
