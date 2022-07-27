@@ -37,6 +37,9 @@ public class NotaFiscal {
     @Column(nullable = false)
     private String endereco;
 
+    @Column(nullable = false)
+    private String email;
+
     @ElementCollection
     private List<ItemNotaFiscal> itens;
 
@@ -54,12 +57,13 @@ public class NotaFiscal {
     public NotaFiscal() {
     }
 
-    public NotaFiscal(String nomeComprador, String cpf, String endereco, List<ItemNotaFiscal> itens,
+    public NotaFiscal(String nomeComprador, String cpf, String endereco, String email, List<ItemNotaFiscal> itens,
             BigDecimal valorTotal) {
         this.criadoEm = LocalDateTime.now();
         this.nomeComprador = nomeComprador;
         this.cpf = cpf;
         this.endereco = endereco;
+        this.email = email;
         this.itens = itens;
         this.valorTotal = valorTotal;
         this.status = StatusNotaFiscal.GERADA;
@@ -85,6 +89,10 @@ public class NotaFiscal {
         return endereco;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public List<ItemNotaFiscal> getItens() {
         return itens;
     }
@@ -95,6 +103,10 @@ public class NotaFiscal {
 
     public StatusNotaFiscal getStatus() {
         return status;
+    }
+
+    public void setStatus(StatusNotaFiscal status) {
+        this.status = status;
     }
 
 }

@@ -31,7 +31,8 @@ public class VendaEvent {
         BigDecimal valorTotal = itensNotaFiscal.stream().map(ItemNotaFiscal::getTotal).reduce(BigDecimal.ZERO,
                 BigDecimal::add);
 
-        return new NotaFiscal(comprador.getNome(), comprador.getCpf(), comprador.getEndereco(), itensNotaFiscal,
+        return new NotaFiscal(comprador.getNome(), comprador.getCpf(), comprador.getEndereco(), comprador.getEmail(),
+                itensNotaFiscal,
                 valorTotal);
     }
 

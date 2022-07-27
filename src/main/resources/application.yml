@@ -33,6 +33,18 @@ spring:
               packages: "*"
             type:
               mapping: 'vendaEvent:br.com.zup.edu.commercenotasfiscais.events.VendaEvent'
+  mail:
+    host: localhost
+    port: 2525
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        debug: true
+        smtp:
+          auth: false
+          starttls:
+            enable: false
 
 server:
   port: 8084
