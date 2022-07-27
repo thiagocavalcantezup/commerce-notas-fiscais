@@ -68,7 +68,10 @@ public class EnviarNotaPorEmailJob {
                             notaFiscalEmailResponse
                         );
                     } catch (JsonProcessingException e) {
-                        LOGGER.error("Erro de processamento do XML");
+                        LOGGER.error(
+                            "Erro de processamento do XML para a nota fiscal de número "
+                                    + notaFiscalEmailResponse.getNumeroDaNota()
+                        );
                         return;
                     }
 
@@ -84,7 +87,10 @@ public class EnviarNotaPorEmailJob {
                                     + " enviada com sucesso"
                         );
                     } catch (MessagingException e) {
-                        LOGGER.error("Erro no envio de email");
+                        LOGGER.error(
+                            "Erro no envio de email para a nota fiscal de número "
+                                    + notaFiscalEmailResponse.getNumeroDaNota()
+                        );
                         return;
                     }
 
