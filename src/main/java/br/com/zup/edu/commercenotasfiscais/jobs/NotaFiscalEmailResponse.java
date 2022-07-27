@@ -21,8 +21,7 @@ public class NotaFiscalEmailResponse {
      * @deprecated Construtor de uso exclusivo do Hibernate
      */
     @Deprecated
-    public NotaFiscalEmailResponse() {
-    }
+    public NotaFiscalEmailResponse() {}
 
     public NotaFiscalEmailResponse(NotaFiscal notaFiscal) {
         this.numeroDaNota = notaFiscal.getNumeroDaNota();
@@ -30,7 +29,10 @@ public class NotaFiscalEmailResponse {
         this.nomeComprador = notaFiscal.getNomeComprador();
         this.cpf = notaFiscal.getCpf();
         this.endereco = notaFiscal.getEndereco();
-        this.itens = notaFiscal.getItens().stream().map(ItemNotaFiscalEmailResponse::new).collect(Collectors.toList());
+        this.itens = notaFiscal.getItens()
+                               .stream()
+                               .map(ItemNotaFiscalEmailResponse::new)
+                               .collect(Collectors.toList());
         this.valorTotal = notaFiscal.getValorTotal();
     }
 

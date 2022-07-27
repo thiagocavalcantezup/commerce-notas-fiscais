@@ -17,8 +17,7 @@ public class ItemNotaFiscal {
     @Column(nullable = false, name = "valor_item")
     private BigDecimal valor;
 
-    public ItemNotaFiscal() {
-    }
+    public ItemNotaFiscal() {}
 
     public ItemNotaFiscal(String nome, Long quantidade, BigDecimal valor) {
         this.nome = nome;

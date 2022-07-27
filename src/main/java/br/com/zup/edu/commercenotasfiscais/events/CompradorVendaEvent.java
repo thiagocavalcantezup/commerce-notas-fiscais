@@ -14,10 +14,10 @@ public class CompradorVendaEvent {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dataNascimento;
 
-    public CompradorVendaEvent() {
-    }
+    public CompradorVendaEvent() {}
 
-    public CompradorVendaEvent(String nome, String cpf, String email, String endereco, LocalDate dataNascimento) {
+    public CompradorVendaEvent(String nome, String cpf, String email, String endereco,
+                               LocalDate dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;

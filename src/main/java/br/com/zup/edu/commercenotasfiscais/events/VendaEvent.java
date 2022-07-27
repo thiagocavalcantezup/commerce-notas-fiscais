@@ -15,11 +15,10 @@ public class VendaEvent {
     private List<ItemVendaEvent> itens;
     private PagamentoVendaEvent pagamento;
 
-    public VendaEvent() {
-    }
+    public VendaEvent() {}
 
     public VendaEvent(UUID codigoPedido, CompradorVendaEvent comprador, List<ItemVendaEvent> itens,
-            PagamentoVendaEvent pagamento) {
+                      PagamentoVendaEvent pagamento) {
         this.codigoPedido = codigoPedido;
         this.comprador = comprador;
         this.itens = itens;
@@ -27,13 +26,17 @@ public class VendaEvent {
     }
 
     public NotaFiscal toModel() {
-        List<ItemNotaFiscal> itensNotaFiscal = itens.stream().map(ItemVendaEvent::toModel).collect(Collectors.toList());
-        BigDecimal valorTotal = itensNotaFiscal.stream().map(ItemNotaFiscal::getTotal).reduce(BigDecimal.ZERO,
-                BigDecimal::add);
+        List<ItemNotaFiscal> itensNotaFiscal = itens.stream()
+                                                    .map(ItemVendaEvent::toModel)
+                                                    .collect(Collectors.toList());
+        BigDecimal valorTotal = itensNotaFiscal.stream()
+                                               .map(ItemNotaFiscal::getTotal)
+                                               .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return new NotaFiscal(comprador.getNome(), comprador.getCpf(), comprador.getEndereco(), comprador.getEmail(),
-                itensNotaFiscal,
-                valorTotal);
+        return new NotaFiscal(
+            comprador.getNome(), comprador.getCpf(), comprador.getEndereco(), comprador.getEmail(),
+            itensNotaFiscal, valorTotal
+        );
     }
 
     public UUID getCodigoPedido() {

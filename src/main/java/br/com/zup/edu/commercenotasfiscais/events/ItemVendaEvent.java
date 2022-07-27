@@ -11,8 +11,7 @@ public class ItemVendaEvent {
     private Long quantidade;
     private BigDecimal valor;
 
-    public ItemVendaEvent() {
-    }
+    public ItemVendaEvent() {}
 
     public ItemVendaEvent(Long id, String nome, Long quantidade, BigDecimal valor) {
         this.id = id;

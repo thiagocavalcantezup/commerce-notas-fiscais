@@ -54,11 +54,10 @@ public class NotaFiscal {
      * @deprecated Construtor de uso exclusivo do Hibernate
      */
     @Deprecated
-    public NotaFiscal() {
-    }
+    public NotaFiscal() {}
 
-    public NotaFiscal(String nomeComprador, String cpf, String endereco, String email, List<ItemNotaFiscal> itens,
-            BigDecimal valorTotal) {
+    public NotaFiscal(String nomeComprador, String cpf, String endereco, String email,
+                      List<ItemNotaFiscal> itens, BigDecimal valorTotal) {
         this.criadoEm = LocalDateTime.now();
         this.nomeComprador = nomeComprador;
         this.cpf = cpf;

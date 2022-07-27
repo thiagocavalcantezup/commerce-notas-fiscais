@@ -14,12 +14,14 @@ import org.hibernate.type.Type;
 public class FiveDigitsGenerator extends SequenceStyleGenerator {
 
     @Override
-    public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
+    public Serializable generate(SharedSessionContractImplementor session,
+                                 Object object) throws HibernateException {
         return String.format("%05d", super.generate(session, object));
     }
 
     @Override
-    public void configure(Type type, Properties params, ServiceRegistry serviceRegistry) throws MappingException {
+    public void configure(Type type, Properties params,
+                          ServiceRegistry serviceRegistry) throws MappingException {
         super.configure(LongType.INSTANCE, params, serviceRegistry);
     }
 

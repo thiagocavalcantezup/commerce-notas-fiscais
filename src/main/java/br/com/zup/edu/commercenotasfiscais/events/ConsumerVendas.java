@@ -25,4 +25,5 @@ public class ConsumerVendas {
         notaFiscalRepository.save(notaFiscal);
         LOGGER.info("Nota fiscal de número " + notaFiscal.getNumeroDaNota() + " salva com sucesso");
     }
+
 }

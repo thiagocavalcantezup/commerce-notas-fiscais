@@ -10,8 +10,7 @@ public class ItemNotaFiscalEmailResponse {
     private Long quantidade;
     private BigDecimal valor;
 
-    public ItemNotaFiscalEmailResponse() {
-    }
+    public ItemNotaFiscalEmailResponse() {}
 
     public ItemNotaFiscalEmailResponse(ItemNotaFiscal itemNotaFiscal) {
         this.nome = itemNotaFiscal.getNome();

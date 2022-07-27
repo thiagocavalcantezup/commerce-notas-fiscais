@@ -26,6 +26,7 @@ import br.com.zup.edu.commercenotasfiscais.repositories.NotaFiscalRepository;
 
 @Service
 public class EnviarNotaPorEmailJob {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(EnviarNotaPorEmailJob.class);
 
     private final TransactionTemplate transactionTemplate;
@@ -33,8 +34,9 @@ public class EnviarNotaPorEmailJob {
     private final XmlMapper xmlMapper;
     private final JavaMailSender javaMailSender;
 
-    public EnviarNotaPorEmailJob(TransactionTemplate transactionTemplate, NotaFiscalRepository notaFiscalRepository,
-            XmlMapper xmlMapper, JavaMailSender javaMailSender) {
+    public EnviarNotaPorEmailJob(TransactionTemplate transactionTemplate,
+                                 NotaFiscalRepository notaFiscalRepository, XmlMapper xmlMapper,
+                                 JavaMailSender javaMailSender) {
         this.transactionTemplate = transactionTemplate;
         this.notaFiscalRepository = notaFiscalRepository;
         this.xmlMapper = xmlMapper;
@@ -47,33 +49,40 @@ public class EnviarNotaPorEmailJob {
 
         while (pendente) {
             pendente = transactionTemplate.execute((status) -> {
-                List<NotaFiscal> notasFiscaisGeradas = notaFiscalRepository
-                        .findTop5ByStatusOrderByCriadoEmAsc(GERADA);
+                List<NotaFiscal> notasFiscaisGeradas = notaFiscalRepository.findTop5ByStatusOrderByCriadoEmAsc(
+                    GERADA
+                );
 
                 if (notasFiscaisGeradas.isEmpty()) {
                     return false;
                 }
 
                 notasFiscaisGeradas.forEach(notaFiscal -> {
-                    NotaFiscalEmailResponse notaFiscalEmailResponse = new NotaFiscalEmailResponse(notaFiscal);
+                    NotaFiscalEmailResponse notaFiscalEmailResponse = new NotaFiscalEmailResponse(
+                        notaFiscal
+                    );
                     String notaFiscalEmailResponseXml;
 
                     try {
-                        notaFiscalEmailResponseXml = xmlMapper.writeValueAsString(notaFiscalEmailResponse);
+                        notaFiscalEmailResponseXml = xmlMapper.writeValueAsString(
+                            notaFiscalEmailResponse
+                        );
                     } catch (JsonProcessingException e) {
-                        LOGGER.error("Erro de processamento do JSON");
+                        LOGGER.error("Erro de processamento do XML");
                         return;
                     }
 
                     try {
                         sendMessageWithAttachment(
-                                notaFiscal.getEmail(),
-                                "Sua compra foi confirmada!",
-                                "Sua nota fiscal de número " + notaFiscalEmailResponse.getNumeroDaNota()
-                                        + " se encontra anexada ao email.",
-                                notaFiscalEmailResponseXml);
-                        LOGGER.info("Nota fiscal de número " + notaFiscalEmailResponse.getNumeroDaNota()
-                                + " enviada com sucesso");
+                            notaFiscal.getEmail(), "Sua compra foi confirmada!",
+                            "Sua nota fiscal de número " + notaFiscalEmailResponse.getNumeroDaNota()
+                                    + " se encontra anexada ao email.",
+                            notaFiscalEmailResponseXml
+                        );
+                        LOGGER.info(
+                            "Nota fiscal de número " + notaFiscalEmailResponse.getNumeroDaNota()
+                                    + " enviada com sucesso"
+                        );
                     } catch (MessagingException e) {
                         LOGGER.error("Erro no envio de email");
                         return;
@@ -88,8 +97,8 @@ public class EnviarNotaPorEmailJob {
     }
 
     // SOURCE: https://www.baeldung.com/spring-email
-    private void sendMessageWithAttachment(String to, String subject, String text, String attachment)
-            throws MessagingException {
+    private void sendMessageWithAttachment(String to, String subject, String text,
+                                           String attachment) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -101,10 +110,12 @@ public class EnviarNotaPorEmailJob {
         // SOURCE:
         // https://stackoverflow.com/questions/40590696/javamail-requires-an-inputstreamsource-that-creates-a-fresh-stream-for-every-cal
         // A classe ByteArrayDataSource pode ser usada para mandar uma string como anexo
-        ByteArrayDataSource resource = new ByteArrayDataSource(attachment.getBytes(Charset.forName("UTF-8")),
-                "text/xml");
+        ByteArrayDataSource resource = new ByteArrayDataSource(
+            attachment.getBytes(Charset.forName("UTF-8")), "text/xml"
+        );
         helper.addAttachment("notafiscal.xml", resource);
 
         javaMailSender.send(message);
     }
+
 }

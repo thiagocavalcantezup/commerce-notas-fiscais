@@ -8,8 +8,7 @@ public class PagamentoVendaEvent {
     private String forma;
     private StatusPagamentoEvent status;
 
-    public PagamentoVendaEvent() {
-    }
+    public PagamentoVendaEvent() {}
 
     public PagamentoVendaEvent(UUID id, String forma, StatusPagamentoEvent status) {
         this.id = id;
@@ -28,4 +27,5 @@ public class PagamentoVendaEvent {
     public StatusPagamentoEvent getStatus() {
         return status;
     }
+
 }

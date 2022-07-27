@@ -8,8 +8,10 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 @Configuration
 public class XmlConfig {
+
     @Bean
     XmlMapper xmlMapper(MappingJackson2XmlHttpMessageConverter converter) {
         return (XmlMapper) converter.getObjectMapper();
     }
+
 }
